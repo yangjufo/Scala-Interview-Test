@@ -141,7 +141,7 @@ class BooleanJsonTest extends FlatSpec with Matchers {
   //Test Boolean expression serialization
   "Boolean expression" should "be serialized to Json correctly" in {
     for (b <- basicBoolean ::: combineBoolean) {
-      val jsonExpression = write(b)
+      val jsonExpression = booleanToJson(b)
       println(jsonExpression)
       checkJson(parse(jsonExpression))
     }
@@ -150,7 +150,7 @@ class BooleanJsonTest extends FlatSpec with Matchers {
   //Test Json expression deserialization
   "Json expression" should "be deserialized correctly" in {
     for (j <- basicJson ::: combineJson) {
-      val booleanExpression = read[BooleanExpression](j)
+      val booleanExpression = jsonToBoolean(j)
       println(booleanExpression)
       checkBoolean(booleanExpression)
     }

@@ -2,21 +2,6 @@ import org.json4s._
 import org.json4s.jackson.JsonMethods._
 import org.json4s.jackson.Serialization.{read, write}
 
-//BooleanExpression definition
-sealed trait BooleanExpression
-
-case object True extends BooleanExpression
-
-case object False extends BooleanExpression
-
-case class Variable(symbol: String) extends BooleanExpression
-
-case class Not(e: BooleanExpression) extends BooleanExpression
-
-case class Or(e1: BooleanExpression, e2: BooleanExpression) extends BooleanExpression
-
-case class And(e1: BooleanExpression, e2: BooleanExpression) extends BooleanExpression
-
 //a special class for test
 case class FailureTest(e: BooleanExpression) extends BooleanExpression
 
@@ -27,7 +12,7 @@ object BooleanJson {
 
   //customize serializer
   class booleanSerializer extends CustomSerializer[BooleanExpression](_ => ( {
-    //from json to BooleanExpression
+    //from json to BooleanExpression.scala
     //And, Or: recursively extract e1, e2
     case JObject(JField("jsonClass", JString("And")) :: JField("e1", e1) :: JField("e2", e2) :: Nil) => And(e1.extract[BooleanExpression], e2.extract[BooleanExpression])
     case JObject(JField("jsonClass", JString("Or")) :: JField("e1", e1) :: JField("e2", e2) :: Nil) => Or(e1.extract[BooleanExpression], e2.extract[BooleanExpression])
@@ -44,7 +29,7 @@ object BooleanJson {
     case JObject(JField("jsonClass", JString("True")) :: Nil) => True
     case JObject(JField("jsonClass", JString("False")) :: Nil) => False
   }, {
-    //from BooleanExpression to json
+    //from BooleanExpression.scala to json
     //And, Or: recursively deal with e1, e2
     case and: And => JObject(JField("jsonClass", JString("And")), JField("e1", parse(write(and.e1))), JField("e2", parse(write(and.e2))))
     case or: Or => JObject(JField("jsonClass", JString("Or")), JField("e1", parse(write(or.e1))), JField("e2", parse(write(or.e2))))
@@ -62,5 +47,13 @@ object BooleanJson {
     case False => JObject(JField("jsonClass", JString("False")))
   }
   ))
+
+  def booleanToJson(booleanExpression: BooleanExpression): String = {
+    write(booleanExpression)
+  }
+
+  def jsonToBoolean(jsonExpression: String): BooleanExpression ={
+    read[BooleanExpression](jsonExpression)
+  }
 
 }
