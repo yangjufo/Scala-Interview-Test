@@ -39,7 +39,7 @@ Json format:
 <br />True: {"jsonClass": "True"}
 <br />False: {"jsonClass": "False"}
 
-As shown above, a key named "jsonClass" is used to distinguish between different Boolean Expressions
+As shown above, a key named "jsonClass" is used to distinguish between different Boolean Expressions.
 <br />A custom serializer is used to process Boolean Expressions and JSON Expressions recursively.
 
 Example:
@@ -74,13 +74,13 @@ Formats:
 <br />False:$F
 
 Example:
-<br />And(Or(Variable("a"), True), Not(Variable("b"))) <=>
+<br />And(Or(Variable("a"), True), Not(Variable("b"))) =>
 <br />((a)v($T))∧(¬(b))
 
 ### Boolean algebra server
 Files: BooleanServer.scala, BooleanClient.scala
 
-The library socket is used.
+The socket library is used.
 
 The server is bound to a localhost port and accepting a connection. When a message is received, it will convert the message into an Algebra Expression and send it to the client. If an exception is thrown, it will send the error message to the client.
 
