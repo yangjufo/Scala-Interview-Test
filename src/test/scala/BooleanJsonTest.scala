@@ -1,13 +1,12 @@
 import BooleanJson._
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
-import org.json4s.jackson.Serialization.{read, write}
 import org.scalatest._
 
 //Scala test object
 class BooleanJsonTest extends FlatSpec with Matchers {
 
-  //Check Json expression
+  //Check JSON expression
   def checkJson(jsonExpression: JValue) {
     //check type of expression
     ((jsonExpression \ "jsonClass") \\ classOf[JString]) should contain oneOf("And", "Or", "Not", "Variable", "True", "False")
@@ -107,7 +106,7 @@ class BooleanJsonTest extends FlatSpec with Matchers {
     Or(FailureTest(And(Variable("a"), False)), Or(Variable("b"), True))
   )
 
-  //Basic Json expression
+  //Basic JSON expression
   val basicJson = List(
     "{\"jsonClass\":\"True\"}",
     "{\"jsonClass\":\"False\"}",
@@ -117,7 +116,7 @@ class BooleanJsonTest extends FlatSpec with Matchers {
     "{\"jsonClass\":\"Or\",\"e1\":{\"jsonClass\":\"Variable\",\"symbol\":\"a\"},\"e2\":{\"jsonClass\":\"Variable\",\"symbol\":\"a\"}}"
   )
 
-  //combined Json expression
+  //combined JSON expression
   val combineJson = List(
     "{\"jsonClass\":\"And\",\"e1\":{\"jsonClass\":\"And\",\"e1\":{\"jsonClass\":\"Variable\",\"symbol\":\"a\"},\"e2\":{\"jsonClass\":\"True\"}},\"e2\":{\"jsonClass\":\"And\",\"e1\":{\"jsonClass\":\"Variable\",\"symbol\":\"b\"},\"e2\":{\"jsonClass\":\"False\"}}}",
     "{\"jsonClass\":\"Or\",\"e1\":{\"jsonClass\":\"Or\",\"e1\":{\"jsonClass\":\"Variable\",\"symbol\":\"a\"},\"e2\":{\"jsonClass\":\"True\"}},\"e2\":{\"jsonClass\":\"Or\",\"e1\":{\"jsonClass\":\"Variable\",\"symbol\":\"b\"},\"e2\":{\"jsonClass\":\"False\"}}}",
@@ -129,7 +128,7 @@ class BooleanJsonTest extends FlatSpec with Matchers {
     "{\"jsonClass\":\"And\",\"e1\":{\"jsonClass\":\"And\",\"e1\":{\"jsonClass\":\"Or\",\"e1\":{\"jsonClass\":\"Variable\",\"symbol\":\"a\"},\"e2\":{\"jsonClass\":\"True\"}},\"e2\":{\"jsonClass\":\"Not\",\"e\":{\"jsonClass\":\"Variable\",\"symbol\":\"b\"}}},\"e2\":{\"jsonClass\":\"Or\",\"e1\":{\"jsonClass\":\"And\",\"e1\":{\"jsonClass\":\"Variable\",\"symbol\":\"a\"},\"e2\":{\"jsonClass\":\"True\"}},\"e2\":{\"jsonClass\":\"Not\",\"e\":{\"jsonClass\":\"Variable\",\"symbol\":\"b\"}}}}"
   )
 
-  //False Json expression
+  //False JSON expression
   val falseJson = List(
     "{\"jsonClass\":\"Good\"}",
     "{\"jsonClass\":\"Variable\",\"symbols\":\"a\"}",
@@ -139,7 +138,7 @@ class BooleanJsonTest extends FlatSpec with Matchers {
 
 
   //Test Boolean expression serialization
-  "Boolean expression" should "be serialized to Json correctly" in {
+  "Boolean expression" should "be serialized to JSON correctly" in {
     for (b <- basicBoolean ::: combineBoolean) {
       val jsonExpression = booleanToJson(b)
       println(jsonExpression)
@@ -147,8 +146,8 @@ class BooleanJsonTest extends FlatSpec with Matchers {
     }
   }
 
-  //Test Json expression deserialization
-  "Json expression" should "be deserialized correctly" in {
+  //Test JSON expression deserialization
+  "JSON expression" should "be deserialized correctly" in {
     for (j <- basicJson ::: combineJson) {
       val booleanExpression = jsonToBoolean(j)
       println(booleanExpression)

@@ -11,3 +11,6 @@ case class Not(e: BooleanExpression) extends BooleanExpression
 case class Or(e1: BooleanExpression, e2: BooleanExpression) extends BooleanExpression
 
 case class And(e1: BooleanExpression, e2: BooleanExpression) extends BooleanExpression
+
+//A special class for test
+case class FailureTest(e: BooleanExpression) extends BooleanExpression

@@ -1,23 +1,25 @@
-object WarmUp {
+object Warmup {
   def main(args: Array[String]) {
-    //read n from console
+    //Read n from console
     //val n = scala.io.StdIn.readInt()
+
     val n = 10
-    //print result
+
+    //Print result
     println(recursion(n))
     println(dynamicProgramming(n))
     println(power(n))
   }
 
-  //recursive function
-  def recursion(n: Int): Int = {10
+  //Recursive function
+  def recursion(n: Int): Int = {
     if (n == 0)
       1
     else
       recursion(n - 1) + recursion(n - 1)
   }
 
-  //dynamic programming function
+  //Dynamic programming function
   def dynamicProgramming(n: Int): Int = {
     var dp = new Array[Int](n + 1)
     dp(0) = 1
@@ -25,7 +27,7 @@ object WarmUp {
     dp(n)
   }
 
-  //power function
+  //Power function
   def power(n: Int): Int = {
     if (n == 0)
       1
