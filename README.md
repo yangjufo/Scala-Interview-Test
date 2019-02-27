@@ -1,5 +1,4 @@
 # Scala-Interview-Test
-#### Author: Jian Yang
 
 #### File organization
 The project is built by sbt in IntelliJ IDEA.
